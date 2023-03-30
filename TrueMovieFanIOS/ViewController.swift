@@ -8,6 +8,8 @@
 import UIKit
 
 class ViewController: UIViewController {
+    
+    var emoji = UIView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
