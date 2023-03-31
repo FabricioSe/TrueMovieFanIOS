@@ -36,6 +36,7 @@ class ViewController: UIViewController, ButtonPanelDelegate {
         buttonBar.delegate = self
         
         applyConstraints()
+        discoverMovies()
     }
 
     func applyConstraints(){
@@ -71,7 +72,17 @@ class ViewController: UIViewController, ButtonPanelDelegate {
 
     }
 
-    
+    // Function coming from the API
+    func discoverMovies() {
+        tmdbAPI.discoverMovies {  httpStatusCode, response in
+            print(response)
+            //let result = response["results"] as? [[String:Any]]
+            //print(result)
+            
+        } failHandler: { httpStatusCode, errorMessage in
+            print(errorMessage)
+        }
+    }
     
     
 
