@@ -18,7 +18,7 @@ class ViewController: UIViewController, ButtonPanelDelegate {
     var myTitle : UILabel = {
         let lbl = UILabel()
         lbl.translatesAutoresizingMaskIntoConstraints = false
-        lbl.text = "Now Playing"
+        lbl.text = "Trening Movies"
         lbl.font = .boldSystemFont(ofSize: 35)
         lbl.textColor = .black
         return lbl
@@ -56,7 +56,7 @@ class ViewController: UIViewController, ButtonPanelDelegate {
         myTitle.translatesAutoresizingMaskIntoConstraints = false
         myTitle.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor,constant: 30).isActive = true
         myTitle.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor).isActive = true
-        myTitle.widthAnchor.constraint(equalToConstant: 200).isActive = true
+        myTitle.widthAnchor.constraint(equalToConstant: 400).isActive = true
         myTitle.heightAnchor.constraint(equalToConstant: 50).isActive = true
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
