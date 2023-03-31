@@ -11,5 +11,5 @@ import UIKit
 class tmdbAPI {
     static let baseURL = "https://api.themoviedb.org/3/"
     
-    static func 
+    
 }

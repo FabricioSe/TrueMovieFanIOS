@@ -54,7 +54,7 @@ class ButtonPanel : UIView, ButtonUIDelegate {
         super.layoutSubviews()
     
         nowButton.img = UIImage(systemName: "film")
-        nowButton.label = "Now"
+        nowButton.label = "Trending"
 
         upComingButton.img = UIImage(systemName: "film.stack")
         upComingButton.label = "UpComing"
