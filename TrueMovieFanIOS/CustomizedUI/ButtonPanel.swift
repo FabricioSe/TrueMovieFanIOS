@@ -24,6 +24,9 @@ class ButtonPanel : UIView, ButtonUIDelegate {
     var upComingButton : ButtonUI = ButtonUI()
     var searchButton : ButtonUI = ButtonUI()
     
+    var studentList : [String] = []
+    
+    @IBOutlet var tableView : UITableView!
 
     
     override init(frame: CGRect) {
