@@ -43,6 +43,7 @@ class ViewController: UIViewController, ButtonPanelDelegate {
 
         
         applyConstraints()
+        discoverMovies()
     }
 
     func applyConstraints(){
@@ -84,10 +85,20 @@ class ViewController: UIViewController, ButtonPanelDelegate {
         headTitle = "Search"
 
     }
-
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 25
+    }
+    // Function coming from the API
+    func discoverMovies() {
+        tmdbAPI.discoverMovies {  httpStatusCode, response in
+            print(response)
+            //let result = response["results"] as? [[String:Any]]
+            //print(result)
+            
+        } failHandler: { httpStatusCode, errorMessage in
+            print(errorMessage)
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

@@ -20,7 +20,7 @@ class API {
                       endPoint : String,
                       method : String = "POST",
                       header : [String:String] = [:],
-                      payload : [String:Any],
+                      payload : [String:Any] = [:],
                       successHandler: @escaping (_ httpStatusCode : Int, _ response : [String: Any]) -> Void,
                       failHandler : @escaping (_ httpStatusCode : Int, _ errorMessage: String) -> Void) {
         
