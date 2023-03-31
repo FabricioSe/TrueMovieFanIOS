@@ -15,6 +15,8 @@
 		31CBE73B29D5F95A00A8CC96 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 31CBE73929D5F95A00A8CC96 /* LaunchScreen.storyboard */; };
 		841CB28F29D5FCCD00D9652D /* ButtonPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841CB28E29D5FCCD00D9652D /* ButtonPanel.swift */; };
 		841CB29129D7606100D9652D /* ButtonUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841CB29029D7606100D9652D /* ButtonUI.swift */; };
+		841CB29D29D772DD00D9652D /* tmdbAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841CB29A29D772DD00D9652D /* tmdbAPI.swift */; };
+		841CB29E29D772DD00D9652D /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841CB29C29D772DD00D9652D /* API.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +30,8 @@
 		31CBE73C29D5F95A00A8CC96 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		841CB28E29D5FCCD00D9652D /* ButtonPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonPanel.swift; sourceTree = "<group>"; };
 		841CB29029D7606100D9652D /* ButtonUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonUI.swift; sourceTree = "<group>"; };
+		841CB29A29D772DD00D9652D /* tmdbAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = tmdbAPI.swift; sourceTree = "<group>"; };
+		841CB29C29D772DD00D9652D /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +64,7 @@
 		31CBE72D29D5F95900A8CC96 /* TrueMovieFanIOS */ = {
 			isa = PBXGroup;
 			children = (
+				841CB29829D772DD00D9652D /* Service */,
 				841CB28D29D5FC9600D9652D /* CustomizedUI */,
 				31CBE72E29D5F95900A8CC96 /* AppDelegate.swift */,
 				31CBE73029D5F95900A8CC96 /* SceneDelegate.swift */,
@@ -79,6 +84,31 @@
 				841CB29029D7606100D9652D /* ButtonUI.swift */,
 			);
 			path = CustomizedUI;
+			sourceTree = "<group>";
+		};
+		841CB29829D772DD00D9652D /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				841CB29929D772DD00D9652D /* tmdbAPI */,
+				841CB29B29D772DD00D9652D /* API */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		841CB29929D772DD00D9652D /* tmdbAPI */ = {
+			isa = PBXGroup;
+			children = (
+				841CB29A29D772DD00D9652D /* tmdbAPI.swift */,
+			);
+			path = tmdbAPI;
+			sourceTree = "<group>";
+		};
+		841CB29B29D772DD00D9652D /* API */ = {
+			isa = PBXGroup;
+			children = (
+				841CB29C29D772DD00D9652D /* API.swift */,
+			);
+			path = API;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -155,8 +185,10 @@
 				841CB28F29D5FCCD00D9652D /* ButtonPanel.swift in Sources */,
 				31CBE73329D5F95900A8CC96 /* ViewController.swift in Sources */,
 				31CBE72F29D5F95900A8CC96 /* AppDelegate.swift in Sources */,
+				841CB29D29D772DD00D9652D /* tmdbAPI.swift in Sources */,
 				31CBE73129D5F95900A8CC96 /* SceneDelegate.swift in Sources */,
 				841CB29129D7606100D9652D /* ButtonUI.swift in Sources */,
+				841CB29E29D772DD00D9652D /* API.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

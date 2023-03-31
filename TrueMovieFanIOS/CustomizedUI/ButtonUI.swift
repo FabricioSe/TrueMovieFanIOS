@@ -91,7 +91,7 @@ class ButtonUI : UIButton{
         // Image Icon
         imageIcon.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
         imageIcon.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
-        imageIcon.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+        imageIcon.topAnchor.constraint(equalTo: self.topAnchor,constant: 5).isActive = true
         imageIcon.heightAnchor.constraint(equalToConstant: 25).isActive = true
         
         // Label

@@ -43,7 +43,7 @@ class ViewController: UIViewController, ButtonPanelDelegate {
         buttonBar.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor).isActive = true
         buttonBar.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor).isActive = true
         buttonBar.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor).isActive = true
-        buttonBar.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        buttonBar.heightAnchor.constraint(equalToConstant: 60).isActive = true
 
         
         myTitle.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor,constant: 30).isActive = true
