@@ -28,7 +28,7 @@ class ButtonUI : UIButton{
         
     }()
     
-    private let lblMesage : UILabel = {
+    let lblMesage : UILabel = {
         
         let lbl = UILabel()
         lbl.numberOfLines = 1

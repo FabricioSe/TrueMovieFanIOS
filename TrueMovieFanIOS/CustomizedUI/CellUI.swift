@@ -19,7 +19,16 @@ class CellUI : UITableViewCell {
     }
     
     // /// ///
-    
+    let img : UIImageView = {
+        let i = UIImageView()
+        //i.images = UIImage(systemName: "")
+        i.contentMode = .scaleAspectFit
+        i.tintColor = .white
+        i.clipsToBounds = true
+        i.backgroundColor = .gray.withAlphaComponent(0)
+        i.translatesAutoresizingMaskIntoConstraints = false
+        return i
+    }()
     
     
 }
