@@ -39,7 +39,7 @@ class ViewController: UIViewController, ButtonPanelDelegate {
         buttonBar.delegate = self
         
         
-        tableView.register(CellUI.self, forCellReuseIdentifier: "cellUI")
+        tableView.register(CellUI.self, forCellReuseIdentifier: CellUI.identifier)
 
         
         applyConstraints()
@@ -102,9 +102,12 @@ class ViewController: UIViewController, ButtonPanelDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: CellUI.identifier, for: indexPath) as! CellUI
         
         return cell
+    }
+    func tableView(_ tableView: UITableView, heightForRow indexPath: IndexPath) -> CGFloat{
+        return 100
     }
     
 
