@@ -9,6 +9,11 @@ import UIKit
 
 class ViewController: UIViewController, ButtonPanelDelegate {
     
+    //********* FROM API
+    var arrayOfMoviesName = [String]()
+    var arrayOfMoviePoster = [String]()
+    //
+    
     var headTitle : String?{
         didSet{
             myTitle.text = headTitle
@@ -92,10 +97,16 @@ class ViewController: UIViewController, ButtonPanelDelegate {
     // Function coming from the API
     func discoverMovies() {
         tmdbAPI.discoverMovies {  httpStatusCode, response in
-            print(response)
-            //let result = response["results"] as? [[String:Any]]
-            //print(result)
+            let current = response as [String:Any]
+            let results = current["results"] as? [[String:Any]]
             
+            for index in 0..<results!.count {
+                let finalResult = tmdbAPICurrent.decode(json: results![index])
+                DispatchQueue.main.async {
+                    self.arrayOfMoviesName.append(finalResult!.title)
+                    self.arrayOfMoviePoster.append("https://image.tmdb.org/t/p/w500\(finalResult!.poster_path)")
+                }
+            }
         } failHandler: { httpStatusCode, errorMessage in
             print(errorMessage)
         }

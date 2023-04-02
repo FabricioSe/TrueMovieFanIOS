@@ -17,19 +17,25 @@ class tmdbAPI {
                                                             String) -> Void) {
         let api_key = "7af60d16a4a4e9c424a7bcafba970288"
         let endPoint = "/discover/movie?api_key=\(api_key)&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_watch_monetization_types=flatrate"
+        let payload : [String:String] = [:]
         
-        API.call(baseURL: baseURL, endPoint: endPoint, method: "GET", successHandler: successHandler, failHandler: failHandler)
+        API.call(baseURL: baseURL, endPoint: endPoint, method: "GET", payload: payload, successHandler: successHandler, failHandler: failHandler)
     }
 }
 
 // Codable: transform bytes into a string or an object
 struct tmdbAPICurrent: Codable {
-    var results : [Movie]
-    
-    struct Movie : Codable {
-        var title : String
-        var poster_path : String
-    }
+//    var total_pages : String
+//    var results : [Movie]
+//    var total_results : String
+//    var page : String
+//
+//    struct Movie : Codable {
+//        var title : String
+//        var poster_path : String
+//    }
+    var poster_path : String
+    var title : String
     
     static func decode( json : [String:Any]) -> tmdbAPICurrent? {
         let decoder = JSONDecoder()

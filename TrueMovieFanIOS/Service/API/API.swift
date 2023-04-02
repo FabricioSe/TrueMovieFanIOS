@@ -20,7 +20,7 @@ class API {
                       endPoint : String,
                       method : String = "POST",
                       header : [String:String] = [:],
-                      payload : [String:Any] = [:],
+                      payload : [String:Any],
                       successHandler: @escaping (_ httpStatusCode : Int, _ response : [String: Any]) -> Void,
                       failHandler : @escaping (_ httpStatusCode : Int, _ errorMessage: String) -> Void) {
         
@@ -59,7 +59,7 @@ class API {
                         
                         if let jsonObject = try JSONSerialization.jsonObject(with: response, options : []) as? [String : Any]{
                             
-                            print(jsonObject)
+//                            print(jsonObject)
                             print("*** HTTP Response Code: \(httpStatusCode)")
                             
                             if !(200..<300).contains(httpStatusCode) {
