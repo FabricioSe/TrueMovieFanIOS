@@ -36,6 +36,7 @@ class ViewController: UIViewController, ButtonPanelDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        discoverMovies()
         
         self.view.addSubview(buttonBar)
         self.view.backgroundColor = .gray
@@ -48,7 +49,7 @@ class ViewController: UIViewController, ButtonPanelDelegate {
 
         
         applyConstraints()
-        discoverMovies()
+
     }
 
     func applyConstraints(){
@@ -101,7 +102,7 @@ class ViewController: UIViewController, ButtonPanelDelegate {
             let results = current["results"] as? [[String:Any]]
             
             for index in 0..<results!.count {
-                let finalResult = tmdbAPICurrent.decode(json: results![index])
+                let finalResult = tmdbAPIMovies.decode(json: results![index])
                 DispatchQueue.main.async {
                     self.arrayOfMoviesName.append(finalResult!.title)
                     self.arrayOfMoviePoster.append("https://image.tmdb.org/t/p/w500\(finalResult!.poster_path)")

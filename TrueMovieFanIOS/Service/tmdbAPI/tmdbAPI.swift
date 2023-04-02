@@ -24,7 +24,7 @@ class tmdbAPI {
 }
 
 // Codable: transform bytes into a string or an object
-struct tmdbAPICurrent: Codable {
+struct tmdbAPIMovies: Codable {
 //    var total_pages : String
 //    var results : [Movie]
 //    var total_results : String
@@ -37,11 +37,11 @@ struct tmdbAPICurrent: Codable {
     var poster_path : String
     var title : String
     
-    static func decode( json : [String:Any]) -> tmdbAPICurrent? {
+    static func decode( json : [String:Any]) -> tmdbAPIMovies? {
         let decoder = JSONDecoder()
         do {
             let data = try JSONSerialization.data(withJSONObject: json, options: .prettyPrinted)
-            let object = try decoder.decode(tmdbAPICurrent.self, from: data)
+            let object = try decoder.decode(tmdbAPIMovies.self, from: data)
             return object
         } catch {
         }
