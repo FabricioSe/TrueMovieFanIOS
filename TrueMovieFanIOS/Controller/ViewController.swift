@@ -39,6 +39,8 @@ class ViewController: UIViewController, ButtonPanelDelegate, UITableViewDelegate
     
     var tableView : UITableView = UITableView()
     
+    var status : Bool = false
+    
     var searchBar : UITextField = {
         let sb = UITextField()
         sb.translatesAutoresizingMaskIntoConstraints = false
@@ -110,14 +112,17 @@ class ViewController: UIViewController, ButtonPanelDelegate, UITableViewDelegate
         searchBar.isHidden = true
         myTitle.isHidden = false
         tableView.isHidden = false
+        status = false
+        tableView.reloadData()
     }
     
     func upComingButtonTapped(sender: ButtonPanel) {
         print("UP COMING")
-        headTitle = "Up Coming Movies"
+        headTitle = "UpComing Movies"
         searchBar.isHidden = true
         myTitle.isHidden = false
         tableView.isHidden = false
+        status = true
         tableView.reloadData()
     }
     
@@ -125,7 +130,7 @@ class ViewController: UIViewController, ButtonPanelDelegate, UITableViewDelegate
         print("Search")
         headTitle = "Search"
         searchBar.isHidden = false
-        //tableView.isHidden = true
+        tableView.isHidden = true
         myTitle.isHidden = true
         
     }
@@ -174,15 +179,25 @@ class ViewController: UIViewController, ButtonPanelDelegate, UITableViewDelegate
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: CellUI.identifier, for: indexPath) as! CellUI
-        cell.titleLabel?.text = self.trendingMovieList[indexPath.row].title
-        cell.coverImageView?.fetchUImageFromURL(url: URL(string: trendingMovieList[indexPath.row].posterURL)!)
+        if status == true{
+            cell.titleLabel?.text = self.upcomingMovieList[indexPath.row].title
+            cell.coverImageView?.fetchUImageFromURL(url: URL(string: upcomingMovieList[indexPath.row].posterURL)!)
+        }else{
+            cell.titleLabel?.text = self.trendingMovieList[indexPath.row].title
+            cell.coverImageView?.fetchUImageFromURL(url: URL(string: trendingMovieList[indexPath.row].posterURL)!)
+        }
         return cell
     }
     internal func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat{
         return 130
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.trendingMovieList.count
+        if status == true{
+            return self.upcomingMovieList.count
+        }
+        else{
+            return self.trendingMovieList.count
+        }
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)

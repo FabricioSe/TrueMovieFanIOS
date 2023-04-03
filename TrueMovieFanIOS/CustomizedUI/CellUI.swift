@@ -26,7 +26,7 @@ class CellUI : UITableViewCell {
     
     func createUI(){
         coverImageView = UIImageView.init(frame: CGRect(x: 15, y: 15, width: 100, height: 100))
-        coverImageView?.contentMode = .scaleAspectFill
+        coverImageView?.contentMode = .scaleAspectFit
         coverImageView?.clipsToBounds = true
         self.contentView.addSubview(coverImageView!)
         
