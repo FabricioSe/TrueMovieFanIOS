@@ -1,15 +1,15 @@
 //
-//  CellUI.swift
+//  MovieTableViewCell.swift
 //  TrueMovieFanIOS
 //
-//  Created by admin on 2023-03-31.
+//  Created by admin on 2023-04-03.
 //
 
 import UIKit
 
-class CellUI : UITableViewCell {
+class MovieTableViewCell: UITableViewCell {
     
-    static let identifier = "TableViewCell"
+    static let identifier = "MovieTableViewCell"
     
     var coverImageView : UIImageView?
     var titleLabel : UILabel?
@@ -37,4 +37,3 @@ class CellUI : UITableViewCell {
     }
     
 }
-

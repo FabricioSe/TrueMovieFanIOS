@@ -20,6 +20,8 @@ class ViewController: UIViewController, ButtonPanelDelegate, UITableViewDelegate
         }
     }
     
+    var datasource = ["ios 1","ios 2"]
+    
     var myTitle : UILabel = {
         let lbl = UILabel()
         lbl.translatesAutoresizingMaskIntoConstraints = false
@@ -143,14 +145,14 @@ class ViewController: UIViewController, ButtonPanelDelegate, UITableViewDelegate
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: CellUI.identifier, for: indexPath) as! CellUI
-        
+        cell.titleLabel?.text = datasource[indexPath.row]
         return cell
     }
-    func tableView(_ tableView: UITableView, heightForRow indexPath: IndexPath) -> CGFloat{
-        return 100
+    internal func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat{
+        return 130
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 25
+        return datasource.count
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
