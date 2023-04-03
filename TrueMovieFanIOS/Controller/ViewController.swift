@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, ButtonPanelDelegate {
+class ViewController: UIViewController, ButtonPanelDelegate, UITableViewDelegate, UITableViewDataSource, UITextViewDelegate {
     
     //********* FROM API
     var arrayOfMoviesName = [String]()
@@ -32,6 +32,13 @@ class ViewController: UIViewController, ButtonPanelDelegate {
     var buttonBar : ButtonPanel = ButtonPanel()
     
     var tableView : UITableView = UITableView()
+    
+    var searchBar : UITextField = {
+        let sb = UITextField()
+        sb.translatesAutoresizingMaskIntoConstraints = false
+        sb.placeholder = "Enter Movie Name"
+        return sb
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,14 +46,19 @@ class ViewController: UIViewController, ButtonPanelDelegate {
         discoverMovies()
         
         self.view.addSubview(buttonBar)
-        self.view.backgroundColor = .gray
+        //self.view.backgroundColor = .gray
         self.view.addSubview(myTitle)
         self.view.addSubview(tableView)
+        self.view.addSubview(searchBar)
+        
         buttonBar.delegate = self
         
         
         tableView.register(CellUI.self, forCellReuseIdentifier: CellUI.identifier)
 
+        tableView.delegate = self
+        tableView.dataSource = self
+        
         
         applyConstraints()
 
@@ -71,30 +83,44 @@ class ViewController: UIViewController, ButtonPanelDelegate {
         tableView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: buttonBar.topAnchor).isActive = true
         
+        searchBar.translatesAutoresizingMaskIntoConstraints = false
+        searchBar.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor,constant: 30).isActive = true
+        searchBar.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor).isActive = true
+        searchBar.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor,constant: 30).isActive = true
+        searchBar.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        
         buttonBar.backgroundColor = .cyan
         myTitle.backgroundColor = .red
         tableView.backgroundColor = .yellow
+        
+        searchBar.isHidden = true
     }
     
     func nowButtonTapped(sender: ButtonPanel) {
         print("Trending")
         headTitle = "Trending Movies"
+        searchBar.isHidden = true
+        myTitle.isHidden = false
+        tableView.isHidden = false
     }
     
     func upComingButtonTapped(sender: ButtonPanel) {
         print("UP COMING")
         headTitle = "Up Coming Movies"
+        searchBar.isHidden = true
+        myTitle.isHidden = false
+        tableView.isHidden = false
     }
     
     func searchButtonTapped(sender: ButtonPanel) {
         print("Search")
         headTitle = "Search"
-
+        searchBar.isHidden = false
+        //tableView.isHidden = true
+        myTitle.isHidden = true
+        
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 25
-    }
     // Function coming from the API
     func discoverMovies() {
         tmdbAPI.discoverMovies {  httpStatusCode, response in
@@ -113,6 +139,8 @@ class ViewController: UIViewController, ButtonPanelDelegate {
         }
     }
     
+    //TableView
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: CellUI.identifier, for: indexPath) as! CellUI
         
@@ -121,7 +149,41 @@ class ViewController: UIViewController, ButtonPanelDelegate {
     func tableView(_ tableView: UITableView, heightForRow indexPath: IndexPath) -> CGFloat{
         return 100
     }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 25
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
     
-
+    //Search Bar
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool{
+        searchMovie()
+        return true
+    }
+    
+    func searchMovie(){
+        searchBar.resignFirstResponder()
+        
+        guard let text = searchBar.text, !text.isEmpty else{
+            return
+        }
+        
+        URLSession.shared.dataTask(with: URL(string: "")!, completionHandler: {
+            data, response, error in
+            
+            guard let data = data, error == nil else{
+                return
+            }
+            
+            //Convert
+            
+            //Update our movie
+            
+            //Refresh
+            
+        }).resume()
+                
+    }
 }
 
