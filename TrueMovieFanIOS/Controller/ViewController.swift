@@ -9,18 +9,20 @@ import UIKit
 
 class ViewController: UIViewController, ButtonPanelDelegate, UITableViewDelegate, UITableViewDataSource, UITextViewDelegate {
     
-    //********* FROM API
-    var arrayOfMoviesName = [String]()
-    var arrayOfMoviePoster = [String]()
-    //
+    //****** FROM API ********
+    struct Movie {
+        var title : String
+        var posterURL : String
+    }
+    
+    var trendingMovieList = [Movie]()
+    //************************
     
     var headTitle : String?{
         didSet{
             myTitle.text = headTitle
         }
     }
-    
-    var datasource = ["ios 1","ios 2"]
     
     var myTitle : UILabel = {
         let lbl = UILabel()
@@ -133,8 +135,8 @@ class ViewController: UIViewController, ButtonPanelDelegate, UITableViewDelegate
             
             for index in 0..<results!.count {
                 let finalResult = tmdbAPIMovies.decode(json: results![index])
-                    self.arrayOfMoviesName.append(finalResult!.title)
-                    self.arrayOfMoviePoster.append("https://image.tmdb.org/t/p/w500\(finalResult!.poster_path)")
+                let movie = Movie(title: finalResult!.title, posterURL: "https://image.tmdb.org/t/p/w500\(finalResult!.poster_path)")
+                self.trendingMovieList.append(movie)
             }
             //self.tableView.reloadData()
             DispatchQueue.main.async {
@@ -150,15 +152,15 @@ class ViewController: UIViewController, ButtonPanelDelegate, UITableViewDelegate
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: CellUI.identifier, for: indexPath) as! CellUI
-        cell.titleLabel?.text = self.arrayOfMoviesName[indexPath.row]
-        cell.coverImageView?.fetchUImageFromURL(url: URL(string: arrayOfMoviePoster[indexPath.row])!)
+        cell.titleLabel?.text = self.trendingMovieList[indexPath.row].title
+        cell.coverImageView?.fetchUImageFromURL(url: URL(string: trendingMovieList[indexPath.row].posterURL)!)
         return cell
     }
     internal func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat{
         return 130
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.arrayOfMoviesName.count
+        return self.trendingMovieList.count
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
