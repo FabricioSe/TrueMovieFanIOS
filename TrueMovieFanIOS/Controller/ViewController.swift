@@ -16,6 +16,7 @@ class ViewController: UIViewController, ButtonPanelDelegate, UITableViewDelegate
     }
     
     var trendingMovieList = [Movie]()
+    var upComingMovieList = [Movie]()
     //************************
     
     var headTitle : String?{

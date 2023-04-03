@@ -21,6 +21,8 @@ class tmdbAPI {
         
         API.call(baseURL: baseURL, endPoint: endPoint, method: "GET", payload: payload, successHandler: successHandler, failHandler: failHandler)
     }
+    
+    //https://api.themoviedb.org/3/movie/upcoming?api_key=091170c8beb6b16a8d303013a81b85a1&language=en-US&page=1&region=ca
 }
 
 // Codable: transform bytes into a string or an object
