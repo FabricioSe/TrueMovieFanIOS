@@ -19,7 +19,7 @@ class ButtonUI : UIButton{
         
         let img = UIImageView()
         img.contentMode = .scaleAspectFit
-        img.tintColor = .white
+        img.tintColor = .systemBlue
         img.clipsToBounds = true
         img.backgroundColor = .gray.withAlphaComponent(0)
         img.translatesAutoresizingMaskIntoConstraints = false
@@ -33,7 +33,7 @@ class ButtonUI : UIButton{
         let lbl = UILabel()
         lbl.numberOfLines = 1
         lbl.textAlignment = .center
-        lbl.textColor = .white
+        lbl.textColor = .systemBlue
         lbl.font = .systemFont(ofSize: 18)
         lbl.backgroundColor = .gray.withAlphaComponent(0)
         lbl.translatesAutoresizingMaskIntoConstraints = false

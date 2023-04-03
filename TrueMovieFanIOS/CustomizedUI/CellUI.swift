@@ -16,7 +16,7 @@ class CellUI : UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        self.contentView.backgroundColor = UIColor.blue
+        //self.contentView.backgroundColor = UIColor.blue
         self.createUI()
     }
     
@@ -31,7 +31,7 @@ class CellUI : UITableViewCell {
         self.contentView.addSubview(coverImageView!)
         
         titleLabel = UILabel.init(frame: CGRect(x: 130, y: 60, width: UIScreen.main.bounds.size.width - 145, height: 20))
-        titleLabel?.font = UIFont.systemFont(ofSize: 15)
+        titleLabel?.font = UIFont.systemFont(ofSize: 20)
         titleLabel?.textColor = UIColor.black
         self.contentView.addSubview(titleLabel!)
     }

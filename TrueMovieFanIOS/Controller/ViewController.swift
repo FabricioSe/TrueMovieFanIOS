@@ -61,7 +61,7 @@ class ViewController: UIViewController, ButtonPanelDelegate, UITableViewDelegate
         tableView.delegate = self
         tableView.dataSource = self
         
-        
+        tableView.reloadData()
         applyConstraints()
 
     }
@@ -91,10 +91,11 @@ class ViewController: UIViewController, ButtonPanelDelegate, UITableViewDelegate
         searchBar.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor,constant: 30).isActive = true
         searchBar.heightAnchor.constraint(equalToConstant: 50).isActive = true
         
+        /*
         buttonBar.backgroundColor = .cyan
         myTitle.backgroundColor = .red
         tableView.backgroundColor = .yellow
-        
+        */
         searchBar.isHidden = true
     }
     
@@ -112,6 +113,7 @@ class ViewController: UIViewController, ButtonPanelDelegate, UITableViewDelegate
         searchBar.isHidden = true
         myTitle.isHidden = false
         tableView.isHidden = false
+        tableView.reloadData()
     }
     
     func searchButtonTapped(sender: ButtonPanel) {
@@ -131,28 +133,32 @@ class ViewController: UIViewController, ButtonPanelDelegate, UITableViewDelegate
             
             for index in 0..<results!.count {
                 let finalResult = tmdbAPIMovies.decode(json: results![index])
-                DispatchQueue.main.async {
                     self.arrayOfMoviesName.append(finalResult!.title)
                     self.arrayOfMoviePoster.append("https://image.tmdb.org/t/p/w500\(finalResult!.poster_path)")
-                }
+            }
+            //self.tableView.reloadData()
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
             }
         } failHandler: { httpStatusCode, errorMessage in
             print(errorMessage)
         }
+        
     }
     
     //TableView
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: CellUI.identifier, for: indexPath) as! CellUI
-        cell.titleLabel?.text = datasource[indexPath.row]
+        cell.titleLabel?.text = self.arrayOfMoviesName[indexPath.row]
+        cell.coverImageView?.fetchUImageFromURL(url: URL(string: arrayOfMoviePoster[indexPath.row])!)
         return cell
     }
     internal func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat{
         return 130
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return datasource.count
+        return self.arrayOfMoviesName.count
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
