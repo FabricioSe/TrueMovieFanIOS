@@ -200,8 +200,20 @@ class ViewController: UIViewController, ButtonPanelDelegate, UITableViewDelegate
         }
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
+        //tableView.deselectRow(at: indexPath, animated: true)
+        let selectedMovie = trendingMovieList[indexPath.row]
+        
+        let infoVC = MovieInfoViewController()
+        infoVC.selectedMovie = selectedMovie.id
+        present(infoVC, animated: true)
+//        navigationController?.pushViewController(infoVC, animated: true)
     }
+    
+    
+    
+    
+    
+    
     
     //Search Bar
     func textFieldShouldReturn(_ textField: UITextField) -> Bool{
