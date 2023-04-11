@@ -67,6 +67,8 @@ struct tmdbAPIMovieDetail: Codable {
     var title : String
     var poster_path : String
     var overview : String
+    var release_date : String
+    var runtime : Int
     
     static func decode( json : [String : Any]) -> tmdbAPIMovieDetail? {
         let decoder = JSONDecoder()

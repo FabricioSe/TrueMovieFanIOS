@@ -13,6 +13,10 @@ class MovieInfoViewController : UIViewController {
     
     var selectedMovie : Int = 0
     
+    var movieGenre : String?
+    var movieReleaseYear : String?
+    var movieDuration : String?
+    
     var movieName : UILabel = {
         let lbl = UILabel()
         lbl.translatesAutoresizingMaskIntoConstraints = false
@@ -142,12 +146,17 @@ class MovieInfoViewController : UIViewController {
         tmdbAPI.movieID = self.selectedMovie
         tmdbAPI.movieDetails { httpStatusCode, response in
             let currentMovie = response as [String : Any]
-//            let genre = currentMovie["genres"] as? [String : Any]
+            let genre = currentMovie["genres"] as? [[String : Any]]
             
             let movieDetail = tmdbAPIMovieDetail.decode(json: currentMovie)
             DispatchQueue.main.async {
                 self.movieName.text = movieDetail!.title
-//                self.movieSubInformation.text = genre[0].
+                
+                self.movieGenre = genre?.first?["name"] as? String
+                stelf.movieReleaseYear = String(movieDetail!.release_date.prefix(4))
+                self.movieDuration = String(format: "%d hour %02d min", movieDetail!.runtime / 60, movieDetail!.runtime % 60)
+                self.movieSubInformation.text = "\(self.movieGenre!) · \(self.movieReleaseYear!) · \(self.movieDuration!)"
+                
                 self.movieOverview.text = movieDetail!.overview
                 self.movieImage.fetchUImageFromURL(url: URL(string: "https://image.tmdb.org/t/p/w500\(movieDetail!.poster_path)")!)
             }
