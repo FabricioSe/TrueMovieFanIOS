@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import AVFoundation
+import AVKit
 
 class MovieInfoViewController : UIViewController {
     
@@ -65,6 +67,40 @@ class MovieInfoViewController : UIViewController {
         
         self.view.backgroundColor = .white
         applyConstraints()
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
+        movieImage.isUserInteractionEnabled = true
+        movieImage.addGestureRecognizer(tapGestureRecognizer)
+    }
+    
+    @objc func imageTapped(tapGestureRecognizer: UITapGestureRecognizer){
+        let videoURLString = "https://www.youtube.com/watch?v=ZQhMW50wmwg"
+        if let videoURL = URL(string: videoURLString){
+            playVideo(url: videoURL)
+        }
+    }
+    
+    func playVideo(url: URL){
+        let player = AVPlayer(url: url)
+        
+        player.addObserver(self, forKeyPath: "status", options: [.new, .old], context: nil)
+        
+        let playerViewController = AVPlayerViewController()
+        playerViewController.player = player
+        self.present(playerViewController, animated: true){
+            playerViewController.player!.play()
+        }
+    }
+    
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        if keyPath == "status"{
+            if let player = object as? AVPlayer, player.status == .failed{
+                print("AVPlayer failed with error: \(String(describing: player.error))")
+            }
+        }
+    }
+    
+    deinit{
+       // player.removeObserver(self, forKeyPath: "status")
     }
     
     func applyConstraints(){
