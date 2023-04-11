@@ -12,6 +12,7 @@ class ViewController: UIViewController, ButtonPanelDelegate, UITableViewDelegate
     //****** FROM API ********
     var trendingMovieList = [Movie]()
     var upcomingMovieList = [Movie]()
+    var searchingMovieList = [Movie]()
     //************************
     
     var headTitle : String?{
@@ -66,7 +67,7 @@ class ViewController: UIViewController, ButtonPanelDelegate, UITableViewDelegate
         
         movieListTableView.delegate = self
         movieListTableView.dataSource = self
-        //
+
         applyConstraints()
 
     }
@@ -96,12 +97,18 @@ class ViewController: UIViewController, ButtonPanelDelegate, UITableViewDelegate
         searchBar.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor,constant: -15).isActive = true
         searchBar.heightAnchor.constraint(equalToConstant: 50).isActive = true
         
+        movieListTableView.translatesAutoresizingMaskIntoConstraints = false
+        movieListTableView.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 10).isActive = true
+        movieListTableView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 10).isActive = true
+        movieListTableView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -10).isActive = true
+        movieListTableView.bottomAnchor.constraint(equalTo: buttonBar.topAnchor).isActive = true
         /*
         buttonBar.backgroundColor = .cyan
         myTitle.backgroundColor = .red
         tableView.backgroundColor = .yellow
         */
         searchBar.isHidden = true
+        movieListTableView.isHidden = true
     }
     
     func nowButtonTapped(sender: ButtonPanel) {
@@ -111,7 +118,7 @@ class ViewController: UIViewController, ButtonPanelDelegate, UITableViewDelegate
         myTitle.isHidden = false
         tableView.isHidden = false
         status = false
-
+        movieListTableView.isHidden = true
         tableView.reloadData()
     }
     
@@ -122,7 +129,7 @@ class ViewController: UIViewController, ButtonPanelDelegate, UITableViewDelegate
         myTitle.isHidden = false
         tableView.isHidden = false
         status = true
-
+        movieListTableView.isHidden = true
         tableView.reloadData()
     }
     
@@ -132,6 +139,7 @@ class ViewController: UIViewController, ButtonPanelDelegate, UITableViewDelegate
         searchBar.isHidden = false
         tableView.isHidden = true
         myTitle.isHidden = true
+        movieListTableView.isHidden = false
         
     }
     
@@ -217,44 +225,65 @@ class ViewController: UIViewController, ButtonPanelDelegate, UITableViewDelegate
     //TableView
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: CellUI.identifier, for: indexPath) as! CellUI
-        if status == true{
-            cell.titleLabel?.text = self.upcomingMovieList[indexPath.row].title
-            cell.coverImageView?.fetchUImageFromURL(url: URL(string: upcomingMovieList[indexPath.row].posterURL)!)
+        if tableView == movieListTableView{
+            let cell = tableView.dequeueReusableCell(withIdentifier: CellSearchingUI.identifier, for: indexPath) as! CellSearchingUI
+            cell.textLabel?.text = self.searchingMovieList[indexPath.row].title
+            return cell
         }else{
-            cell.titleLabel?.text = self.trendingMovieList[indexPath.row].title
-            cell.coverImageView?.fetchUImageFromURL(url: URL(string: trendingMovieList[indexPath.row].posterURL)!)
+            let cell = tableView.dequeueReusableCell(withIdentifier: CellUI.identifier, for: indexPath) as! CellUI
+            if status == true{
+                cell.titleLabel?.text = self.upcomingMovieList[indexPath.row].title
+                cell.coverImageView?.fetchUImageFromURL(url: URL(string: upcomingMovieList[indexPath.row].posterURL)!)
+            }else{
+                cell.titleLabel?.text = self.trendingMovieList[indexPath.row].title
+                cell.coverImageView?.fetchUImageFromURL(url: URL(string: trendingMovieList[indexPath.row].posterURL)!)
+            }
+            return cell
         }
-        return cell
     }
     internal func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat{
-        return 130
+        if tableView == movieListTableView{
+            return 50
+        }else{
+            return 130
+        }
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if status == true{
-            return self.upcomingMovieList.count
-        }
-        else{
-            return self.trendingMovieList.count
+        if tableView == movieListTableView{
+            return self.searchingMovieList.count
+        }else{
+            if status == true{
+                return self.upcomingMovieList.count
+            }
+            else{
+                return self.trendingMovieList.count
+            }
         }
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //tableView.deselectRow(at: indexPath, animated: true)
 
-        let infoVC = MovieInfoViewController()
-        
-        if status == false{
-            let selectedMovie = trendingMovieList[indexPath.row]
+        if tableView == movieListTableView{
+            let selectedMovie = searchingMovieList[indexPath.row]
+            let infoVC = MovieInfoViewController()
             infoVC.selectedMovie = selectedMovie.id
+            present(infoVC, animated: true)
         }else{
-            let selectedMovie = upcomingMovieList[indexPath.row]
-            infoVC.selectedMovie = selectedMovie.id
+            let infoVC = MovieInfoViewController()
+            
+            if status == false{
+                let selectedMovie = trendingMovieList[indexPath.row]
+                infoVC.selectedMovie = selectedMovie.id
+            }else{
+                let selectedMovie = upcomingMovieList[indexPath.row]
+                infoVC.selectedMovie = selectedMovie.id
+            }
+            
+            present(infoVC, animated: true)
+            //        navigationController?.pushViewController(infoVC, animated: true)
         }
-        
-        present(infoVC, animated: true)
-//        navigationController?.pushViewController(infoVC, animated: true)
     }
-    
+     
     
     
     

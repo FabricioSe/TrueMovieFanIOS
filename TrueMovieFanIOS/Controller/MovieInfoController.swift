@@ -39,7 +39,7 @@ class MovieInfoViewController : UIViewController {
         let lbl = UILabel()
         lbl.translatesAutoresizingMaskIntoConstraints = false
         lbl.text = "Action · 2020 · 1 hour 36 minutes"
-        lbl.font = .systemFont(ofSize: 20)
+        lbl.font = .systemFont(ofSize: 18)
         lbl.textColor = .black
         return lbl
     }()
@@ -129,8 +129,8 @@ class MovieInfoViewController : UIViewController {
             movieImage.heightAnchor.constraint(equalToConstant: 400),
             
             movieSubInformation.topAnchor.constraint(equalTo: movieImage.bottomAnchor, constant: 10),
-            movieSubInformation.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
-            movieSubInformation.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
+            movieSubInformation.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 30),
+            movieSubInformation.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -30),
             movieSubInformation.heightAnchor.constraint(equalToConstant: 30),
             
             movieOverview.topAnchor.constraint(equalTo: movieSubInformation.bottomAnchor, constant: 10),
