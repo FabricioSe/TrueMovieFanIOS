@@ -26,6 +26,7 @@ class MovieInfoViewController : UIViewController {
         let imv = UIImageView()
         imv.translatesAutoresizingMaskIntoConstraints = false
         imv.image = UIImage(systemName: "film")
+        imv.contentMode = .scaleAspectFit
         return imv
     }()
     
@@ -59,6 +60,7 @@ class MovieInfoViewController : UIViewController {
         super.viewDidLoad()
 
         print(selectedMovie)
+        movieDetails()
         
         self.view.addSubview(movieName)
         self.view.addSubview(movieImage)
@@ -132,10 +134,43 @@ class MovieInfoViewController : UIViewController {
             movieOverview.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -20)
         ])
         
-        
-        
     }
     
-    
+    // Function coming from the API
+    func movieDetails() {
+        tmdbAPI.movieID = self.selectedMovie
+        tmdbAPI.movieDetails { httpStatusCode, response in
+            let currentMovie = response as [String : Any]
+//            let genre = currentMovie["genres"] as? [String : Any]
+            
+            let movieDetail = tmdbAPIMovieDetail.decode(json: currentMovie)
+            DispatchQueue.main.async {
+                self.movieName.text = movieDetail!.title
+//                self.movieSubInformation.text = genre[0].
+                self.movieOverview.text = movieDetail!.overview
+                self.movieImage.fetchUImageFromURL(url: URL(string: "https://image.tmdb.org/t/p/w500\(movieDetail!.poster_path)")!)
+            }
+        } failHandler: { httpStatusCode, errorMessage in
+            print(errorMessage)
+        }        
+        
+//
+//        tmdbAPI.discoverMovies {  httpStatusCode, response in
+//            let current = response as [String:Any]
+//            let results = current["results"] as? [[String:Any]]
+//
+//            for index in 0..<results!.count {
+//                let finalResult = tmdbAPIMovies.decode(json: results![index])
+//                let movie = Movie(title: finalResult!.title, posterURL: "https://image.tmdb.org/t/p/w500\(finalResult!.poster_path)", id: finalResult!.id)
+//                self.trendingMovieList.append(movie)
+//            }
+//            //self.tableView.reloadData()
+//            DispatchQueue.main.async {
+//                self.tableView.reloadData()
+//            }
+//        } failHandler: { httpStatusCode, errorMessage in
+//            print(errorMessage)
+//        }
+    }
     
 }
