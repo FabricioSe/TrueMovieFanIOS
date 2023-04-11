@@ -13,6 +13,7 @@ class tmdbAPI {
     static let api_key = "7af60d16a4a4e9c424a7bcafba970288"
     static var page = 1
     static var movieID = Int()
+    static var movieName = String()
     
     static func discoverMovies( successHandler: @escaping (_ httpStatusCode : Int, _ response :
                                                             [String: Any]) -> Void,
@@ -40,6 +41,11 @@ class tmdbAPI {
         let payload : [String:String] = [:]
         
         API.call(baseURL: baseURL, endPoint: endPoint, method: "GET", payload: payload, successHandler: successHandler, failHandler: failHandler)
+    }
+    
+    static func searchMovie( successHandler: @escaping (_ httpStatusCode : Int, _ response : [String : Any]) -> Void,
+                             failHandler : @escaping (_ httpStatusCode : Int, _ errorMessage: String) -> Void) {
+        let endPoint = "/search/movie?api_key=\(api_key)&language=en-US&query=\(movieName)&page=1&include_adult=false"
     }
 }
 

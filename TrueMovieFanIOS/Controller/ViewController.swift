@@ -140,7 +140,6 @@ class ViewController: UIViewController, ButtonPanelDelegate, UITableViewDelegate
         tableView.isHidden = true
         myTitle.isHidden = true
         movieListTableView.isHidden = false
-        
     }
     
     // Function coming from the API
@@ -222,6 +221,26 @@ class ViewController: UIViewController, ButtonPanelDelegate, UITableViewDelegate
         
     }
     
+    func searchMovie() {
+        tmdbAPI.movieName = "Avengers"
+        tmdbAPI.searchMovie { httpStatusCode, response in
+            let currentSearch = response as [String:Any]
+            let results = currentSearch["results"] as? [[String:Any]]
+            print(results!.count)
+            
+            for index in 0..<results!.count {
+                let finalResult = tmdbAPIMovies.decode(json: results![index])
+                let movie = Movie(title: finalResult!.title, posterURL: "https://image.tmdb.org/t/p/w500\(finalResult!.poster_path)", id: finalResult!.id)
+                self.searchingMovieList.append(movie)
+            }
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        } failHandler: { httpStatusCode, errorMessage in
+            print(errorMessage)
+        }
+    }
+    
     //TableView
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -285,39 +304,10 @@ class ViewController: UIViewController, ButtonPanelDelegate, UITableViewDelegate
     }
      
     
-    
-    
-    
-    
-    
     //Search Bar
     func textFieldShouldReturn(_ textField: UITextField) -> Bool{
         searchMovie()
         return true
-    }
-    
-    func searchMovie(){
-        searchBar.resignFirstResponder()
-        
-        guard let text = searchBar.text, !text.isEmpty else{
-            return
-        }
-        
-        URLSession.shared.dataTask(with: URL(string: "")!, completionHandler: {
-            data, response, error in
-            
-            guard let data = data, error == nil else{
-                return
-            }
-            
-            //Convert
-            
-            //Update our movie
-            
-            //Refresh
-            
-        }).resume()
-                
     }
 }
 
