@@ -17,7 +17,8 @@ class MovieInfoViewController : UIViewController {
         let lbl = UILabel()
         lbl.translatesAutoresizingMaskIntoConstraints = false
         lbl.text = "Movie Name"
-        lbl.font = .boldSystemFont(ofSize: 40)
+        lbl.font = .boldSystemFont(ofSize: 30)
+        lbl.numberOfLines = 2
         lbl.textColor = .black
         return lbl
     }()
@@ -115,22 +116,22 @@ class MovieInfoViewController : UIViewController {
         NSLayoutConstraint.activate([
             movieName.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 15 ),
             movieName.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 15),
-            movieName.heightAnchor.constraint(equalToConstant: 50),
+            movieName.heightAnchor.constraint(equalToConstant: 80),
             movieName.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -15),
             
             movieImage.topAnchor.constraint(equalTo: movieName.bottomAnchor, constant: 10),
             movieImage.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
             movieImage.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor),
-            movieImage.heightAnchor.constraint(equalToConstant: 200),
+            movieImage.heightAnchor.constraint(equalToConstant: 400),
             
-            movieSubInformation.topAnchor.constraint(equalTo: movieImage.bottomAnchor, constant: 5),
-            movieSubInformation.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 15),
-            movieSubInformation.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -15),
+            movieSubInformation.topAnchor.constraint(equalTo: movieImage.bottomAnchor, constant: 10),
+            movieSubInformation.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            movieSubInformation.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
             movieSubInformation.heightAnchor.constraint(equalToConstant: 30),
             
-            movieOverview.topAnchor.constraint(equalTo: movieSubInformation.bottomAnchor, constant: 5),
-            movieOverview.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 15),
-            movieOverview.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -15),
+            movieOverview.topAnchor.constraint(equalTo: movieSubInformation.bottomAnchor, constant: 10),
+            movieOverview.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            movieOverview.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
             movieOverview.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -20)
         ])
         

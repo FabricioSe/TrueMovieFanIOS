@@ -35,10 +35,11 @@ class ViewController: UIViewController, ButtonPanelDelegate, UITableViewDelegate
     
     var status : Bool = false
     
-    var searchBar : UITextField = {
-        let sb = UITextField()
+    var searchBar : UISearchBar = {
+        let sb = UISearchBar()
         sb.translatesAutoresizingMaskIntoConstraints = false
         sb.placeholder = "Enter Movie Name"
+        sb.isTranslucent = true
         return sb
     }()
 
@@ -87,9 +88,9 @@ class ViewController: UIViewController, ButtonPanelDelegate, UITableViewDelegate
         tableView.bottomAnchor.constraint(equalTo: buttonBar.topAnchor).isActive = true
         
         searchBar.translatesAutoresizingMaskIntoConstraints = false
-        searchBar.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor,constant: 30).isActive = true
+        searchBar.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor,constant: 15).isActive = true
         searchBar.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor).isActive = true
-        searchBar.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor,constant: 30).isActive = true
+        searchBar.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor,constant: -15).isActive = true
         searchBar.heightAnchor.constraint(equalToConstant: 50).isActive = true
         
         /*
