@@ -153,7 +153,7 @@ class MovieInfoViewController : UIViewController {
                 self.movieName.text = movieDetail!.title
                 
                 self.movieGenre = genre?.first?["name"] as? String
-                stelf.movieReleaseYear = String(movieDetail!.release_date.prefix(4))
+                self.movieReleaseYear = String(movieDetail!.release_date.prefix(4))
                 self.movieDuration = String(format: "%d hour %02d min", movieDetail!.runtime / 60, movieDetail!.runtime % 60)
                 self.movieSubInformation.text = "\(self.movieGenre!) · \(self.movieReleaseYear!) · \(self.movieDuration!)"
                 
