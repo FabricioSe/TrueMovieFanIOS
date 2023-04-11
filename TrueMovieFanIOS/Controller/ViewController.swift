@@ -33,6 +33,8 @@ class ViewController: UIViewController, ButtonPanelDelegate, UITableViewDelegate
     
     var tableView : UITableView = UITableView()
     
+    var movieListTableView : UITableView = UITableView()
+    
     var status : Bool = false
     
     var searchBar : UISearchBar = {
@@ -48,7 +50,7 @@ class ViewController: UIViewController, ButtonPanelDelegate, UITableViewDelegate
         // Do any additional setup after loading the view.
         discoverMovies()
         upcomingMovies()
-        
+
         self.view.addSubview(buttonBar)
         //self.view.backgroundColor = .gray
         self.view.addSubview(myTitle)
@@ -57,13 +59,14 @@ class ViewController: UIViewController, ButtonPanelDelegate, UITableViewDelegate
         
         buttonBar.delegate = self
         
-        
         tableView.register(CellUI.self, forCellReuseIdentifier: CellUI.identifier)
-
         tableView.delegate = self
         tableView.dataSource = self
-        
         tableView.reloadData()
+        
+        movieListTableView.delegate = self
+        movieListTableView.dataSource = self
+        //
         applyConstraints()
 
     }
@@ -108,6 +111,7 @@ class ViewController: UIViewController, ButtonPanelDelegate, UITableViewDelegate
         myTitle.isHidden = false
         tableView.isHidden = false
         status = false
+
         tableView.reloadData()
     }
     
@@ -118,6 +122,7 @@ class ViewController: UIViewController, ButtonPanelDelegate, UITableViewDelegate
         myTitle.isHidden = false
         tableView.isHidden = false
         status = true
+
         tableView.reloadData()
     }
     
@@ -235,10 +240,17 @@ class ViewController: UIViewController, ButtonPanelDelegate, UITableViewDelegate
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //tableView.deselectRow(at: indexPath, animated: true)
-        let selectedMovie = trendingMovieList[indexPath.row]
-        
+
         let infoVC = MovieInfoViewController()
-        infoVC.selectedMovie = selectedMovie.id
+        
+        if status == false{
+            let selectedMovie = trendingMovieList[indexPath.row]
+            infoVC.selectedMovie = selectedMovie.id
+        }else{
+            let selectedMovie = upcomingMovieList[indexPath.row]
+            infoVC.selectedMovie = selectedMovie.id
+        }
+        
         present(infoVC, animated: true)
 //        navigationController?.pushViewController(infoVC, animated: true)
     }
