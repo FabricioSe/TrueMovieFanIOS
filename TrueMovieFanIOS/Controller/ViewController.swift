@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, ButtonPanelDelegate, UITableViewDelegate, UITableViewDataSource, UITextViewDelegate {
+class ViewController: UIViewController, ButtonPanelDelegate, UITableViewDelegate, UITableViewDataSource, UITextViewDelegate, UISearchBarDelegate {
     
     //****** FROM API ********
     var trendingMovieList = [Movie]()
@@ -60,6 +60,7 @@ class ViewController: UIViewController, ButtonPanelDelegate, UITableViewDelegate
         self.view.addSubview(movieListTableView)
         
         buttonBar.delegate = self
+        searchBar.delegate = self
         
         tableView.register(CellUI.self, forCellReuseIdentifier: CellUI.identifier)
         tableView.delegate = self
@@ -137,7 +138,6 @@ class ViewController: UIViewController, ButtonPanelDelegate, UITableViewDelegate
     
     func searchButtonTapped(sender: ButtonPanel) {
         print("Search")
-        searchBarClicked()
         headTitle = "Search"
         searchBar.isHidden = false
         tableView.isHidden = true
@@ -311,7 +311,7 @@ class ViewController: UIViewController, ButtonPanelDelegate, UITableViewDelegate
         }
     }
      
-    func searchBarClicked() {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchingMovieList = []
         searchMovie(movieName: searchBar.text!)
     }
