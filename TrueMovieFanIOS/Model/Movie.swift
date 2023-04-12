@@ -17,4 +17,8 @@ class Movie {
         self.posterURL = posterURL
         self.id = id
     }
+    
+    func toString() -> String {
+        return "Title: \(title), ID: \(id)"
+    }
 }

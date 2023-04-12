@@ -46,6 +46,9 @@ class tmdbAPI {
     static func searchMovie( successHandler: @escaping (_ httpStatusCode : Int, _ response : [String : Any]) -> Void,
                              failHandler : @escaping (_ httpStatusCode : Int, _ errorMessage: String) -> Void) {
         let endPoint = "/search/movie?api_key=\(api_key)&language=en-US&query=\(movieName)&page=1&include_adult=false"
+        let payload : [String : String] = [:]
+        
+        API.call(baseURL: baseURL, endPoint: endPoint, method: "GET", payload: payload, successHandler: successHandler, failHandler: failHandler)
     }
 }
 

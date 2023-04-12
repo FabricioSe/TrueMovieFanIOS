@@ -137,6 +137,7 @@ class ViewController: UIViewController, ButtonPanelDelegate, UITableViewDelegate
     
     func searchButtonTapped(sender: ButtonPanel) {
         print("Search")
+        searchBarClicked()
         headTitle = "Search"
         searchBar.isHidden = false
         tableView.isHidden = true
@@ -223,20 +224,25 @@ class ViewController: UIViewController, ButtonPanelDelegate, UITableViewDelegate
         
     }
     
-    func searchMovie() {
-        tmdbAPI.movieName = "Avengers"
+    func searchMovie( movieName : String) {
+        tmdbAPI.movieName = movieName
         tmdbAPI.searchMovie { httpStatusCode, response in
             let currentSearch = response as [String:Any]
             let results = currentSearch["results"] as? [[String:Any]]
-            print(results!.count)
             
-            for index in 0..<results!.count {
-                let finalResult = tmdbAPIMovies.decode(json: results![index])
-                let movie = Movie(title: finalResult!.title, posterURL: "https://image.tmdb.org/t/p/w500\(finalResult!.poster_path)", id: finalResult!.id)
-                self.searchingMovieList.append(movie)
-            }
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
+            if results!.count != 0 {
+                for index in 0..<results!.count {
+                    let finalResult = tmdbAPIMovies.decode(json: results![index])
+                    let movie = Movie(title: finalResult!.title, posterURL: "https://image.tmdb.org/t/p/w500\(finalResult!.poster_path)", id: finalResult!.id)
+                    print(movie.toString())
+                    self.searchingMovieList.append(movie)
+                }
+                
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+            } else {
+                self.searchingMovieList = []
             }
         } failHandler: { httpStatusCode, errorMessage in
             print(errorMessage)
@@ -305,11 +311,12 @@ class ViewController: UIViewController, ButtonPanelDelegate, UITableViewDelegate
         }
     }
      
-    
-    //Search Bar
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool{
-        searchMovie()
-        return true
+    func searchBarClicked() {
+        searchingMovieList = []
+        searchMovie(movieName: searchBar.text!)
+        for movie in searchingMovieList {
+            print(movie.toString())
+        }
     }
 }
 

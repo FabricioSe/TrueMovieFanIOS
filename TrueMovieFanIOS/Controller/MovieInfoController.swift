@@ -164,24 +164,6 @@ class MovieInfoViewController : UIViewController {
         } failHandler: { httpStatusCode, errorMessage in
             print(errorMessage)
         }        
-        
-//
-//        tmdbAPI.discoverMovies {  httpStatusCode, response in
-//            let current = response as [String:Any]
-//            let results = current["results"] as? [[String:Any]]
-//
-//            for index in 0..<results!.count {
-//                let finalResult = tmdbAPIMovies.decode(json: results![index])
-//                let movie = Movie(title: finalResult!.title, posterURL: "https://image.tmdb.org/t/p/w500\(finalResult!.poster_path)", id: finalResult!.id)
-//                self.trendingMovieList.append(movie)
-//            }
-//            //self.tableView.reloadData()
-//            DispatchQueue.main.async {
-//                self.tableView.reloadData()
-//            }
-//        } failHandler: { httpStatusCode, errorMessage in
-//            print(errorMessage)
-//        }
     }
     
 }
