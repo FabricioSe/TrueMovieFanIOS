@@ -83,6 +83,7 @@ class MovieInfoViewController : UIViewController {
         let videoURLString = "https://www.youtube.com/watch?v=ZQhMW50wmwg"
         if let videoURL = URL(string: videoURLString){
             playVideo(url: videoURL)
+            print(videoURLString)
         }
     }
     

@@ -57,6 +57,7 @@ class ViewController: UIViewController, ButtonPanelDelegate, UITableViewDelegate
         self.view.addSubview(myTitle)
         self.view.addSubview(tableView)
         self.view.addSubview(searchBar)
+        self.view.addSubview(movieListTableView)
         
         buttonBar.delegate = self
         
@@ -65,6 +66,7 @@ class ViewController: UIViewController, ButtonPanelDelegate, UITableViewDelegate
         tableView.dataSource = self
         tableView.reloadData()
         
+        movieListTableView.register(CellSearchingUI.self, forCellReuseIdentifier: CellSearchingUI.identifier)
         movieListTableView.delegate = self
         movieListTableView.dataSource = self
 

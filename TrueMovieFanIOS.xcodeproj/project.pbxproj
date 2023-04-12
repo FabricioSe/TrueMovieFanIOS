@@ -15,6 +15,7 @@
 		31CBE73829D5F95A00A8CC96 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 31CBE73729D5F95A00A8CC96 /* Assets.xcassets */; };
 		31CBE73B29D5F95A00A8CC96 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 31CBE73929D5F95A00A8CC96 /* LaunchScreen.storyboard */; };
 		31CBE75729D92DB000A8CC96 /* UIImageView_FetchImageFromUrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CBE75629D92DB000A8CC96 /* UIImageView_FetchImageFromUrl.swift */; };
+		53EE8ECF29E64AEE007B9DBD /* CellSearchingUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53EE8ECE29E64AEE007B9DBD /* CellSearchingUI.swift */; };
 		841CB28F29D5FCCD00D9652D /* ButtonPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841CB28E29D5FCCD00D9652D /* ButtonPanel.swift */; };
 		841CB29129D7606100D9652D /* ButtonUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841CB29029D7606100D9652D /* ButtonUI.swift */; };
 		841CB29D29D772DD00D9652D /* tmdbAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841CB29A29D772DD00D9652D /* tmdbAPI.swift */; };
@@ -34,6 +35,7 @@
 		31CBE73A29D5F95A00A8CC96 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		31CBE73C29D5F95A00A8CC96 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		31CBE75629D92DB000A8CC96 /* UIImageView_FetchImageFromUrl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageView_FetchImageFromUrl.swift; sourceTree = "<group>"; };
+		53EE8ECE29E64AEE007B9DBD /* CellSearchingUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellSearchingUI.swift; sourceTree = "<group>"; };
 		841CB28E29D5FCCD00D9652D /* ButtonPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonPanel.swift; sourceTree = "<group>"; };
 		841CB29029D7606100D9652D /* ButtonUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonUI.swift; sourceTree = "<group>"; };
 		841CB29A29D772DD00D9652D /* tmdbAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = tmdbAPI.swift; sourceTree = "<group>"; };
@@ -109,6 +111,7 @@
 				841CB28E29D5FCCD00D9652D /* ButtonPanel.swift */,
 				841CB29029D7606100D9652D /* ButtonUI.swift */,
 				841CB29F29D775B500D9652D /* CellUI.swift */,
+				53EE8ECE29E64AEE007B9DBD /* CellSearchingUI.swift */,
 			);
 			path = CustomizedUI;
 			sourceTree = "<group>";
@@ -228,6 +231,7 @@
 				841CB29129D7606100D9652D /* ButtonUI.swift in Sources */,
 				841CB29E29D772DD00D9652D /* API.swift in Sources */,
 				3133048929E5D00300851FCA /* Movie.swift in Sources */,
+				53EE8ECF29E64AEE007B9DBD /* CellSearchingUI.swift in Sources */,
 				31CBE75729D92DB000A8CC96 /* UIImageView_FetchImageFromUrl.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
