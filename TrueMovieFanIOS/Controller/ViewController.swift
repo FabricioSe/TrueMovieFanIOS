@@ -232,8 +232,8 @@ class ViewController: UIViewController, ButtonPanelDelegate, UITableViewDelegate
             
             if results!.count != 0 {
                 for index in 0..<results!.count {
-                    let finalResult = tmdbAPIMovies.decode(json: results![index])
-                    let movie = Movie(title: finalResult!.title, posterURL: "https://image.tmdb.org/t/p/w500\(finalResult!.poster_path)", id: finalResult!.id)
+                    let finalResult = tmdbAPIMovieSearch.decode(json: results![index])
+                    let movie = Movie(title: finalResult!.title, id: finalResult!.id, release_date: String(finalResult!.release_date.prefix(4)))
                     print(movie.toString())
                     self.searchingMovieList.append(movie)
                 }
@@ -314,9 +314,6 @@ class ViewController: UIViewController, ButtonPanelDelegate, UITableViewDelegate
     func searchBarClicked() {
         searchingMovieList = []
         searchMovie(movieName: searchBar.text!)
-        for movie in searchingMovieList {
-            print(movie.toString())
-        }
     }
 }
 

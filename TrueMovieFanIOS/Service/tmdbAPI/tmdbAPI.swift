@@ -90,3 +90,21 @@ struct tmdbAPIMovieDetail: Codable {
         return nil
     }
 }
+
+struct tmdbAPIMovieSearch: Codable {
+    
+    var id : Int
+    var title : String
+    var release_date : String
+    
+    static func decode( json : [String : Any]) -> tmdbAPIMovieSearch? {
+        let decoder = JSONDecoder()
+        do{
+            let data = try JSONSerialization.data(withJSONObject: json, options: .prettyPrinted)
+            let object = try decoder.decode(tmdbAPIMovieSearch.self, from: data)
+            return object
+        } catch {
+        }
+        return nil
+    }
+}
