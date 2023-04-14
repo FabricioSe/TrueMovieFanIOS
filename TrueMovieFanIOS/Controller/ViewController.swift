@@ -239,7 +239,7 @@ class ViewController: UIViewController, ButtonPanelDelegate, UITableViewDelegate
                 }
                 
                 DispatchQueue.main.async {
-                    self.tableView.reloadData()
+                    self.movieListTableView.reloadData()
                 }
             } else {
                 self.searchingMovieList = []
@@ -254,7 +254,9 @@ class ViewController: UIViewController, ButtonPanelDelegate, UITableViewDelegate
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if tableView == movieListTableView{
             let cell = tableView.dequeueReusableCell(withIdentifier: CellSearchingUI.identifier, for: indexPath) as! CellSearchingUI
-            cell.textLabel?.text = self.searchingMovieList[indexPath.row].title
+            cell.movieName.text = self.searchingMovieList[indexPath.row].title
+            cell.movieYear.text = self.searchingMovieList[indexPath.row].release_date
+            //cell.textLabel?.text = self.searchingMovieList[indexPath.row].title
             return cell
         }else{
             let cell = tableView.dequeueReusableCell(withIdentifier: CellUI.identifier, for: indexPath) as! CellUI
@@ -315,5 +317,17 @@ class ViewController: UIViewController, ButtonPanelDelegate, UITableViewDelegate
         searchingMovieList = []
         searchMovie(movieName: searchBar.text!)
     }
+    
+    /*
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        if searchBar.canBecomeFirstResponder {
+            searchBar.becomeFirstResponder()
+            searchingMovieList = []
+            searchMovie(movieName: searchBar.text!)
+        }
+    }
+     */
 }
 
