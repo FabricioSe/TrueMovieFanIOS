@@ -164,7 +164,14 @@ class MovieInfoViewController : UIViewController {
                     self.movieGenre = genre?.first?["name"] as? String
                     self.movieReleaseYear = String(movieDetail!.release_date.prefix(4))
                     self.movieDuration = String(format: "%d hour %02d min", movieDetail!.runtime / 60, movieDetail!.runtime % 60)
-                    self.movieSubInformation.text = "\(self.movieGenre!) · \(self.movieReleaseYear!) · \(self.movieDuration!)"
+
+                    if (self.movieGenre != nil){
+                        self.movieSubInformation.text = "\(self.movieGenre!) · \(self.movieReleaseYear!) · \(self.movieDuration!)"
+                    }
+                    else{
+                        self.movieSubInformation.text = "General · \(self.movieReleaseYear!) · \(self.movieDuration!)"
+                    }
+                   // self.movieSubInformation.text = "\(self.movieGenre!) · \(self.movieReleaseYear!) · \(self.movieDuration!)"
                     
                     self.movieOverview.text = movieDetail!.overview
                     self.movieImage.fetchUImageFromURL(url: URL(string: "https://image.tmdb.org/t/p/w500\(movieDetail!.poster_path)")!)
