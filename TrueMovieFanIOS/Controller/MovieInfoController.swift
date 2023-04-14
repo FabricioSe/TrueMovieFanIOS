@@ -21,7 +21,7 @@ class MovieInfoViewController : UIViewController {
     var movieName : UILabel = {
         let lbl = UILabel()
         lbl.translatesAutoresizingMaskIntoConstraints = false
-        lbl.text = "Movie Name"
+        lbl.text = "Title not available"
         lbl.font = .boldSystemFont(ofSize: 30)
         lbl.numberOfLines = 2
         lbl.textColor = .black
@@ -39,7 +39,7 @@ class MovieInfoViewController : UIViewController {
     var movieSubInformation : UILabel = {
         let lbl = UILabel()
         lbl.translatesAutoresizingMaskIntoConstraints = false
-        lbl.text = "Action · 2020 · 1 hour 36 minutes"
+        lbl.text = "Action · yyyy · n hour nn minutes"
         lbl.font = .systemFont(ofSize: 18)
         lbl.textColor = .black
         return lbl
@@ -48,7 +48,7 @@ class MovieInfoViewController : UIViewController {
     var movieOverview : UITextView = {
         let tv = UITextView()
         tv.font = .systemFont(ofSize: 15)
-        tv.text = "Avatar (marketed as James Cameron's Avatar) is a 2009 epic science fiction film directed, written, co-produced, and co-edited by James Cameron and starring Sam Worthington, Zoe Saldana, Stephen Lang, Michelle Rodriguez, and Sigourney Weaver. It is the first installment in the Avatar film series. It is set in the mid-22nd century, when humans are colonizing Pandora, a lush habitable moon of a gas giant in the Alpha Centauri star system, in order to mine the valuable mineral unobtanium. The expansion of the mining colony threatens the continued existence of a local tribe of Na'vi, a humanoid species indigenous to Pandora. The title of the film refers to a genetically engineered Na'vi body operated from the brain of a remotely located human that is used to interact with the natives of Pandora."
+        tv.text = "The description for this film is not available."
         tv.translatesAutoresizingMaskIntoConstraints = false
         tv.textColor = .black
         return tv
@@ -158,10 +158,8 @@ class MovieInfoViewController : UIViewController {
             
             let movieDetail = tmdbAPIMovieDetail.decode(json: currentMovie)
             DispatchQueue.main.async {
-                if (movieDetail == nil) {
-                    self.movieName.text = "Title not available"
+                if (movieDetail != nil) {
                     
-                } else {
                     self.movieName.text = movieDetail!.title
                     self.movieGenre = genre?.first?["name"] as? String
                     self.movieReleaseYear = String(movieDetail!.release_date.prefix(4))
@@ -170,6 +168,8 @@ class MovieInfoViewController : UIViewController {
                     
                     self.movieOverview.text = movieDetail!.overview
                     self.movieImage.fetchUImageFromURL(url: URL(string: "https://image.tmdb.org/t/p/w500\(movieDetail!.poster_path)")!)
+                    
+                } else {
                 }
             }
         } failHandler: { httpStatusCode, errorMessage in
