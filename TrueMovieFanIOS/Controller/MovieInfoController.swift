@@ -55,7 +55,7 @@ class MovieInfoViewController : UIViewController {
     }()
     
 //    var trailerKey = "cE0wfjsybIQ"
-    var trailerKey : String = "cE0wfjsybIQ"
+    var trailerKey : String = "dQw4w9WgXcQ"
     
     override func viewDidLoad(){
         super.viewDidLoad()
@@ -158,15 +158,19 @@ class MovieInfoViewController : UIViewController {
             
             let movieDetail = tmdbAPIMovieDetail.decode(json: currentMovie)
             DispatchQueue.main.async {
-                self.movieName.text = movieDetail!.title
-                
-                self.movieGenre = genre?.first?["name"] as? String
-                self.movieReleaseYear = String(movieDetail!.release_date.prefix(4))
-                self.movieDuration = String(format: "%d hour %02d min", movieDetail!.runtime / 60, movieDetail!.runtime % 60)
-                self.movieSubInformation.text = "\(self.movieGenre!) · \(self.movieReleaseYear!) · \(self.movieDuration!)"
-                
-                self.movieOverview.text = movieDetail!.overview
-                self.movieImage.fetchUImageFromURL(url: URL(string: "https://image.tmdb.org/t/p/w500\(movieDetail!.poster_path)")!)
+                if (movieDetail == nil) {
+                    self.movieName.text = "Title not available"
+                    
+                } else {
+                    self.movieName.text = movieDetail!.title
+                    self.movieGenre = genre?.first?["name"] as? String
+                    self.movieReleaseYear = String(movieDetail!.release_date.prefix(4))
+                    self.movieDuration = String(format: "%d hour %02d min", movieDetail!.runtime / 60, movieDetail!.runtime % 60)
+                    self.movieSubInformation.text = "\(self.movieGenre!) · \(self.movieReleaseYear!) · \(self.movieDuration!)"
+                    
+                    self.movieOverview.text = movieDetail!.overview
+                    self.movieImage.fetchUImageFromURL(url: URL(string: "https://image.tmdb.org/t/p/w500\(movieDetail!.poster_path)")!)
+                }
             }
         } failHandler: { httpStatusCode, errorMessage in
             print(errorMessage)
@@ -179,10 +183,11 @@ class MovieInfoViewController : UIViewController {
             let current = response as [String:Any]
             let results = current["results"] as? [[String:Any]]
             
-            if results?.first?["key"] as? String == nil {
-                self.trailerKey = ""
-            } else {
-                self.trailerKey = (results?.first?["key"] as? String)!
+            for index in 0..<results!.count {
+                if results?[index]["type"] as! String == "Trailer" {
+                    self.trailerKey = (results?[index]["key"] as? String)!
+                    break
+                }
             }
             
         } failHandler: { httpStatusCode, errorMessage in
