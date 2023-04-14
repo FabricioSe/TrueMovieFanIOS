@@ -8,6 +8,7 @@
 import UIKit
 import AVFoundation
 import AVKit
+import YouTubePlayerKit
 
 class MovieInfoViewController : UIViewController {
     
@@ -54,12 +55,8 @@ class MovieInfoViewController : UIViewController {
     }()
     
     
+    var key = "cE0wfjsybIQ"
     
-    
-    
-    //Video https://www.youtube.com/watch?v=(key)
-    
-    //var videoplayer : CachedPlayerView
     
     override func viewDidLoad(){
         super.viewDidLoad()
@@ -80,17 +77,36 @@ class MovieInfoViewController : UIViewController {
     }
     
     @objc func imageTapped(tapGestureRecognizer: UITapGestureRecognizer){
+        /*
         let videoURLString = "https://www.youtube.com/watch?v=ZQhMW50wmwg"
         if let videoURL = URL(string: videoURLString){
             playVideo(url: videoURL)
             print(videoURLString)
         }
+         */
+        
+        
+        let youTubePlayerViewController = YouTubePlayerViewController(
+            player: "https://www.youtube.com/watch?v="
+        )
+
+        //Auto Play the video
+        youTubePlayerViewController.player.configuration = .init(
+            autoPlay: true
+        )
+        
+        //Modify the Video Link
+        youTubePlayerViewController.player.source = .video(id: key)
+        
+        //Pop up the video player
+        self.present(youTubePlayerViewController, animated: true)
+        
     }
     
+    /*
     func playVideo(url: URL){
         let player = AVPlayer(url: url)
         
-        player.addObserver(self, forKeyPath: "status", options: [.new, .old], context: nil)
         
         let playerViewController = AVPlayerViewController()
         playerViewController.player = player
@@ -98,18 +114,9 @@ class MovieInfoViewController : UIViewController {
             playerViewController.player!.play()
         }
     }
+     */
     
-    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        if keyPath == "status"{
-            if let player = object as? AVPlayer, player.status == .failed{
-                print("AVPlayer failed with error: \(String(describing: player.error))")
-            }
-        }
-    }
     
-    deinit{
-       // player.removeObserver(self, forKeyPath: "status")
-    }
     
     func applyConstraints(){
         movieName.translatesAutoresizingMaskIntoConstraints = false
