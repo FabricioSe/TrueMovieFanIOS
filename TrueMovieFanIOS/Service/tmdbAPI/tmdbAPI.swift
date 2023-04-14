@@ -50,6 +50,14 @@ class tmdbAPI {
         
         API.call(baseURL: baseURL, endPoint: endPoint, method: "GET", payload: payload, successHandler: successHandler, failHandler: failHandler)
     }
+    
+    static func getTrailerForMovie( successHangler: @escaping (_ httpStatusCode : Int, _ response : [String : Any]) -> Void,
+                                     failHandler: @escaping (_ httpStatusCode : Int, _ errorMessage: String) -> Void) {
+        let endPoing = "/movie/\(movieID)/videos?api_key=\(api_key)&language=en-US"
+        let payload : [String : String] = [:]
+        
+        API.call(baseURL: baseURL, endPoint: endPoing, method: "GET", payload: payload, successHandler: successHangler, failHandler: failHandler)
+    }
 }
 
 // Codable: transform bytes into a string or an object
@@ -108,3 +116,4 @@ struct tmdbAPIMovieSearch: Codable {
         return nil
     }
 }
+

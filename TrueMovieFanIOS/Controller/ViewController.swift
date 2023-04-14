@@ -146,61 +146,30 @@ class ViewController: UIViewController, ButtonPanelDelegate, UITableViewDelegate
     }
     
     // Function coming from the API
+    func fetchMovies(page: Int) {
+        tmdbAPI.page = page
+        tmdbAPI.discoverMovies {  httpStatusCode, response in
+            let current = response as [String:Any]
+            let results = current["results"] as? [[String:Any]]
+            
+            for index in 0..<results!.count {
+                let finalResult = tmdbAPIMovies.decode(json: results![index])
+                let movie = Movie(title: finalResult!.title, posterURL: "https://image.tmdb.org/t/p/w500\(finalResult!.poster_path)", id: finalResult!.id)
+                self.trendingMovieList.append(movie)
+            }
+            //self.tableView.reloadData()
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        } failHandler: { httpStatusCode, errorMessage in
+            print(errorMessage)
+        }
+    }
+    
     func discoverMovies() {
-        tmdbAPI.page = 1
-        tmdbAPI.discoverMovies {  httpStatusCode, response in
-            let current = response as [String:Any]
-            let results = current["results"] as? [[String:Any]]
-            
-            for index in 0..<results!.count {
-                let finalResult = tmdbAPIMovies.decode(json: results![index])
-                let movie = Movie(title: finalResult!.title, posterURL: "https://image.tmdb.org/t/p/w500\(finalResult!.poster_path)", id: finalResult!.id)
-                self.trendingMovieList.append(movie)
-            }
-            //self.tableView.reloadData()
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
-        } failHandler: { httpStatusCode, errorMessage in
-            print(errorMessage)
-        }
-        
-        tmdbAPI.page = 2
-        tmdbAPI.discoverMovies {  httpStatusCode, response in
-            let current = response as [String:Any]
-            let results = current["results"] as? [[String:Any]]
-            
-            for index in 0..<results!.count {
-                let finalResult = tmdbAPIMovies.decode(json: results![index])
-                let movie = Movie(title: finalResult!.title, posterURL: "https://image.tmdb.org/t/p/w500\(finalResult!.poster_path)", id: finalResult!.id)
-                self.trendingMovieList.append(movie)
-            }
-            //self.tableView.reloadData()
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
-        } failHandler: { httpStatusCode, errorMessage in
-            print(errorMessage)
-        }
-        
-        tmdbAPI.page = 3
-        tmdbAPI.discoverMovies {  httpStatusCode, response in
-            let current = response as [String:Any]
-            let results = current["results"] as? [[String:Any]]
-            
-            for index in 0..<results!.count {
-                let finalResult = tmdbAPIMovies.decode(json: results![index])
-                let movie = Movie(title: finalResult!.title, posterURL: "https://image.tmdb.org/t/p/w500\(finalResult!.poster_path)", id: finalResult!.id)
-                self.trendingMovieList.append(movie)
-            }
-            //self.tableView.reloadData()
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
-        } failHandler: { httpStatusCode, errorMessage in
-            print(errorMessage)
-        }
-
+        fetchMovies(page: 1)
+        fetchMovies(page: 2)
+        fetchMovies(page: 3)
     }
     
     func upcomingMovies() {

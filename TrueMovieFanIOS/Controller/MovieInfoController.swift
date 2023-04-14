@@ -54,15 +54,15 @@ class MovieInfoViewController : UIViewController {
         return tv
     }()
     
-    
-    var key = "cE0wfjsybIQ"
-    
+//    var trailerKey = "cE0wfjsybIQ"
+    var trailerKey : String = "cE0wfjsybIQ"
     
     override func viewDidLoad(){
         super.viewDidLoad()
 
         print(selectedMovie)
         movieDetails()
+        getTrailerKey()
         
         self.view.addSubview(movieName)
         self.view.addSubview(movieImage)
@@ -96,7 +96,7 @@ class MovieInfoViewController : UIViewController {
         )
         
         //Modify the Video Link
-        youTubePlayerViewController.player.source = .video(id: key)
+        youTubePlayerViewController.player.source = .video(id: trailerKey)
         
         //Pop up the video player
         self.present(youTubePlayerViewController, animated: true)
@@ -149,7 +149,7 @@ class MovieInfoViewController : UIViewController {
         
     }
     
-    // Function coming from the API
+    // Function coming from the API to fetch movie Details
     func movieDetails() {
         tmdbAPI.movieID = self.selectedMovie
         tmdbAPI.movieDetails { httpStatusCode, response in
@@ -173,4 +173,20 @@ class MovieInfoViewController : UIViewController {
         }        
     }
     
+    // Function coming from the API to get the trailerKey
+    func getTrailerKey() {
+        tmdbAPI.getTrailerForMovie { httpStatusCode, response in
+            let current = response as [String:Any]
+            let results = current["results"] as? [[String:Any]]
+            
+            if results?.first?["key"] as? String == nil {
+                self.trailerKey = ""
+            } else {
+                self.trailerKey = (results?.first?["key"] as? String)!
+            }
+            
+        } failHandler: { httpStatusCode, errorMessage in
+            print(errorMessage)
+        }
+    }
 }
