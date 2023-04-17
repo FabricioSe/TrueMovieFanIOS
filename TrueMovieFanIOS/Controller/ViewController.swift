@@ -180,8 +180,10 @@ class ViewController: UIViewController, ButtonPanelDelegate, UITableViewDelegate
             
             for index in 0..<results!.count {
                 let finalResult = tmdbAPIMovies.decode(json: results![index])
-                let movie = Movie(title: finalResult!.title, posterURL: "https://image.tmdb.org/t/p/w500\(finalResult!.poster_path)", id: finalResult!.id)
-                self.upcomingMovieList.append(movie)
+                if finalResult != nil {
+                    let movie = Movie(title: finalResult!.title, posterURL: "https://image.tmdb.org/t/p/w500\(finalResult!.poster_path)", id: finalResult!.id)
+                    self.upcomingMovieList.append(movie)
+                }
             }
             //self.tableView.reloadData()
             DispatchQueue.main.async {
